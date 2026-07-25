@@ -14,26 +14,30 @@ export const useInterview =()=>{
     const {loading,setloading,report,setreport,reports,setreports} = context
 
 
-    const generateReport = async ({jobdescription,selfdescription,resume}) =>{
-     setloading(true)
-     let responce = null
-     try{
-        responce = await generateInterviewReport({jobdescription,selfdescription,resume})
+    const generateReport = async ({jobdescription, selfdescription, resume}) => {
+    setloading(true)
+    let responce = null
+    try{
+        responce = await generateInterviewReport({jobdescription, selfdescription, resume})
+        
+        console.log("RAW RESPONSE:", responce)              // 👈 ye add karo
+        console.log("responce.interviewReport:", responce.interviewReport)  // 👈 ye bhi
+        
         setreport(responce.interviewReport)
-     }catch(err){
-         console.log(err)
-     }finally{
+    }catch(err){
+        console.log("ERROR:", err)
+    }finally{
         setloading(false)
-     }
-
-     return responce.interviewReport
     }
+    return responce?.interviewReport
+}
 
     const getReportById = async(interviewId)=>{
         setloading(true)
         let responce = null
         try{
-         responce = await getInterviewReportById(interviewId)
+        //  responce = await getinterviewreportbyid(interviewId)
+            responce = await getinterviewreportbyid(interviewId)
             setreport(responce.interviewReport)
         }catch(err){
             console.log(err)
@@ -43,20 +47,20 @@ export const useInterview =()=>{
         return responce.interviewReport
     }
 
-const getReports = async ()=>{
-    setloading(true)
-    let responce = null
-    try{
-        const responce = await getAllInterviewReports()
-        setreposts(responce.interviewReport)
-    }catch(err){
-        console.log(err)
-    }finally{
-        setloading(false)
-    }
-    return responce.interviewReport
-}
+// const getReports = async ()=>{
+//     setloading(true)
+//     let responce = null
+//     try{
+//         const responce = await getAllInterviewReports()
+//         setreports(responce.interviewReport)
+//     }catch(err){
+//         console.log(err)
+//     }finally{
+//         setloading(false)
+//     }
+//     return responce.interviewReport
+// }
 
-return {loading,report,reports,generateReport,getReportById,getReports}
+return {loading,report,reports,generateReport,getReportById}
 
 }

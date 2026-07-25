@@ -7,14 +7,14 @@ const Job = () => {
 
   const [jobdescription, setJobdescription] = useState("");
   const [selfdescription, setSelfdescription] = useState("");
-  const [resumeName, setResumeName] = useState(""); // ✅ filename state
+  const [resumeName, setResumeName] = useState(""); // filename state
   const ResumeInputRef = useRef();
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setResumeName(file.name); // ✅ show filename
+      setResumeName(file.name); //  show filename
     }
   };
 
@@ -30,9 +30,12 @@ const Job = () => {
       selfdescription,
       resume: resumeFile,
     });
-     console.log("Interview Report:", data.interviewReport);
+
+        //  console.log("1. generateRepo?rt complete, data:", data)
+    // console.log("2. data._id:", data?._id)
     if (data && data._id) {
-      navigate(`/interview/${data._id}`);
+       console.log("3. Navigate ho raha hai...")
+      navigate(`/resume-details/${data._id}`);
     } else {
       console.error("Invalid response:", data);
     }
@@ -58,7 +61,7 @@ const Job = () => {
             onChange={handleFileChange}
           />
           {resumeName && (
-            <p className="text-green-600 mt-2">✅ File selected: {resumeName}</p>
+            <p className="text-green-600 mt-2"> File selected: {resumeName}</p>
           )}
         </div>
 

@@ -11,7 +11,7 @@ export const generateInterviewReport = async ({ resume, selfdescription, jobdesc
     try {
         // Prepare form data for file upload + text fields
         const formData = new FormData();
-        formData.append("resume", resume); // ✅ field name matches backend upload.single("resume")
+        formData.append("resume", resume); // field name matches backend upload.single("resume")
               
         formData.append('selfdescription', selfdescription); // ✅ text field
         formData.append('jobdescription', jobdescription);   // ✅ text field
@@ -34,12 +34,33 @@ export const generateInterviewReport = async ({ resume, selfdescription, jobdesc
 
 // Function to get interview report by ID
 export const getinterviewreportbyid = async (interviewid) => {
+    // console.log("Raw interviewid passed in:", interviewid)
     try {
-        // ✅ Make sure backend has this route: /api/interview/report/:id
-        const response = await api.get(`/api/interview/report/${interviewid}`);
+        
+        const response = await api.get(`/api/interview/${interviewid}`);  
         return response.data;
     } catch (err) {
         console.log("Error in getinterviewreportbyid:", err);
         throw err;
     }    
 };
+
+export const getAllInterviewReports = async () => {
+    try {
+        const response = await api.get('/api/interview/reports');
+        return response.data;
+    } catch (err) {
+        console.log("Error in getAllInterviewReports:", err);
+        throw err;
+    }
+};
+
+// export const getinterviewreport = async ()=>{
+//     try {
+//         const response = await api.get('/api/interview/reports');
+//         return response.data;
+//     } catch (err) {
+//         console.log("Error in getinterviewreportby:", err);
+//         throw err;
+//     }
+// }
